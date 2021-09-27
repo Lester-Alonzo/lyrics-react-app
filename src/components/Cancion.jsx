@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 const Cancion = ({ letra }) => {
   if (letra.length === 0) return null;
   return (
@@ -6,5 +8,8 @@ const Cancion = ({ letra }) => {
       <div className="letra">{letra}</div>
     </>
   );
+};
+Cancion.propTypes = {
+  letra: PropTypes.string.isRequired,
 };
 export default Cancion;

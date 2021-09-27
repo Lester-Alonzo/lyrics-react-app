@@ -2,11 +2,13 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Formulario from "./components/Formulairo";
 import Cancion from "./components/Cancion";
+import Info from "./components/Info";
 
 function App() {
   //definir el state
   const [busquedaLtra, guardarBusquedaLetra] = useState({});
   const [letra, guardarLetra] = useState("");
+  const [info, guardarInfo] = useState({});
   useEffect(() => {
     if (Object.keys(busquedaLtra).length === 0) return;
     try {
@@ -18,7 +20,8 @@ function App() {
           axios(apiinfo),
           axios(apiletra),
         ]);
-        console.log(informacion, letra);
+        guardarLetra(letra.data.lyrics);
+        guardarInfo(informacion.data.artists[0]);
       };
       consultarApi();
     } catch (error) {
@@ -30,7 +33,9 @@ function App() {
       <Formulario guardarBusquedaLetra={guardarBusquedaLetra} />
       <div className="container mt-5">
         <div className="row">
-          <div className="col-md-6"></div>
+          <div className="col-md-6">
+            <Info info={info} />
+          </div>
           <div className="col-md-6">
             <Cancion letra={letra} />
           </div>
