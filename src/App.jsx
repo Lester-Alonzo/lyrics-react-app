@@ -12,10 +12,13 @@ function App() {
     try {
       const consultarApi = async () => {
         const { artista, cancion } = busquedaLtra;
-        // const apiletra = `https://api.lyrics.ovh/v1/${artista}/${cancion}`;
+        const apiletra = `https://api.lyrics.ovh/v1/${artista}/${cancion}`;
         const apiinfo = `https://www.theaudiodb.com/api/v1/json/1/search.php?s=${artista} `;
-        const res = await axios(apiinfo);
-        console.log(res);
+        const [informacion, letra] = await Promise.all([
+          axios(apiinfo),
+          axios(apiletra),
+        ]);
+        console.log(informacion, letra);
       };
       consultarApi();
     } catch (error) {
